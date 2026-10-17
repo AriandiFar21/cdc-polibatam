@@ -6,10 +6,10 @@ import LowonganPage from '../pages/public/LowonganPage';
 import JobDetailPage from '../pages/public/JobDetailPage';
 import PemetaanPage from '../pages/public/PemetaanPage';
 import TentangKamiPage from '../pages/public/TentangKamiPage';
+import Agenda from '../pages/public/AgendaPage';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-// Import Halaman Admin (sesuaikan path folder jika admin ada di dalam pages/admin atau pages/public/admin)
 import LoginPage from '../pages/admin/LoginPage';
 import DashboardPage from '../pages/admin/DashboardPage';
 import KelolaLowongan from '../pages/admin/KelolaLowongan';
@@ -44,6 +44,7 @@ export default function AppRoutes() {
           <Route path="/lowongan/:id" element={<JobDetailPage />} />
           <Route path="/pemetaan" element={<PemetaanPage />} />
           <Route path="/tentang" element={<TentangKamiPage />} />
+           <Route path="/agenda" element={<Agenda />} />
         </Route>
 
         {/* ----------------- RUTE ADMIN ----------------- */}

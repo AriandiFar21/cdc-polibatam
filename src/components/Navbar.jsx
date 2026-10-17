@@ -14,7 +14,6 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Cek apakah user sedang di Landing Page (karena halaman lain butuh navbar solid dari awal)
     const isHome = location.pathname === '/';
     const isSolid = isScrolled || !isHome;
 
@@ -25,19 +24,16 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
 
-                {/* LOGO - Sebelah Kiri (Mengikuti gaya pill putih di referensi) */}
                 <Link
                     to="/"
                     className={`flex items-center gap-2 px-5 py-2.5 rounded-full transition-all ${!isSolid ? 'bg-white text-blue-900 shadow-lg' : 'bg-transparent text-blue-900'
                         }`}
                 >
-                    {/* Ganti teks ini dengan tag <img> kalau udah ada logo resmi Polibatam */}
                     <span className="font-extrabold text-lg tracking-tight">
                         CDC <span className="text-yellow-500">Polibatam</span>
                     </span>
                 </Link>
 
-                {/* MENU - Tengah (Disembunyikan di Mobile) */}
                 <div className={`hidden lg:flex items-center gap-8 font-semibold text-sm transition-colors ${isSolid ? 'text-gray-700' : 'text-white'
                     }`}>
                     <Link to="/" className="hover:text-yellow-400 transition-colors">Beranda</Link>
@@ -47,15 +43,18 @@ export default function Navbar() {
                     </div>
 
                     <Link to="/pemetaan" className="hover:text-yellow-400 transition-colors">Pemetaan Magang</Link>
-                    <a href="https://tracerstudy.kemdikbud.go.id/" target="_blank" rel="noreferrer" className="hover:text-yellow-400 transition-colors">
+                    <a href="https://if.polibatam.ac.id/pamerin/detail.php?title=aplikasi-tracer-study-alumni-polibatam-berbasis-web&id=MzMxMjAwMTA1OQ==&ta=Mw==" target="_blank" rel="noreferrer" className="hover:text-yellow-400 transition-colors">
                         Tracer Study
                     </a>
                     <div className="flex items-center gap-1 cursor-pointer hover:text-yellow-400 transition-colors">
                         <Link to="/tentang">Tentang Kami</Link>
                     </div>
+                    <div className="flex items-center gap-1 cursor-pointer hover:text-yellow-400 transition-colors">
+                        <Link to="/agenda">Agenda</Link>
+                    </div>
                 </div>
 
-                {/* TOMBOL AKSI - Sebelah Kanan (Mengikuti gaya pill putih di referensi) */}
+
                 <div className="hidden lg:flex items-center">
                     <Link
                         to="/admin"
@@ -69,7 +68,6 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                {/* TOMBOL HAMBURGER - Khusus Mobile */}
                 <div className="lg:hidden flex items-center">
                     <button className={`focus:outline-none ${isSolid ? 'text-blue-900' : 'text-white'}`}>
                         <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
