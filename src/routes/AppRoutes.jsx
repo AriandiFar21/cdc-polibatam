@@ -7,6 +7,8 @@ import JobDetailPage from '../pages/public/JobDetailPage';
 import PemetaanPage from '../pages/public/PemetaanPage';
 import TentangKamiPage from '../pages/public/TentangKamiPage';
 import Agenda from '../pages/public/AgendaPage';
+import FAQPage from '../pages/public/FAQPage';
+import TipsPage from '../pages/public/TipsPage';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -29,7 +31,7 @@ const PublicLayout = () => {
 // Pengaman Rute Admin (Mencegah Akses Tanpa Login)
 const ProtectedAdminRoute = () => {
   const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
-  
+
   return isLoggedIn ? <Outlet /> : <Navigate to="/admin/login" replace />;
 };
 
@@ -44,7 +46,10 @@ export default function AppRoutes() {
           <Route path="/lowongan/:id" element={<JobDetailPage />} />
           <Route path="/pemetaan" element={<PemetaanPage />} />
           <Route path="/tentang" element={<TentangKamiPage />} />
-           <Route path="/agenda" element={<Agenda />} />
+          <Route path="/agenda" element={<Agenda />} />
+          <Route path="/faq" element={<FAQPage />} /> 
+          <Route path="/tips" element={<TipsPage />} />
+          
         </Route>
 
         {/* ----------------- RUTE ADMIN ----------------- */}
