@@ -11,7 +11,7 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-100 text-slate-800 font-sans">
       
-      {/* ----------------- TOP NAVBAR (REUSABLE) ----------------- */}
+      {/* ----------------- TOP NAVBAR (REUSABLE----------------- */}
       <Header />
 
       <div className="flex flex-1">
