@@ -9,9 +9,11 @@ import TentangKamiPage from '../pages/public/TentangKamiPage';
 import Agenda from '../pages/public/AgendaPage';
 import FAQPage from '../pages/public/FAQPage';
 import TipsPage from '../pages/public/TipsPage';
+import NotFoundPage from '../pages/public/NotFoundPage'; // <-- Tambahan Import Halaman 404
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
+// Import Halaman Admin
 import LoginPage from '../pages/admin/LoginPage';
 import DashboardPage from '../pages/admin/DashboardPage';
 import KelolaLowongan from '../pages/admin/KelolaLowongan';
@@ -49,7 +51,6 @@ export default function AppRoutes() {
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/faq" element={<FAQPage />} /> 
           <Route path="/tips" element={<TipsPage />} />
-          
         </Route>
 
         {/* ----------------- RUTE ADMIN ----------------- */}
@@ -65,8 +66,8 @@ export default function AppRoutes() {
           <Route path="/admin/pemetaan" element={<PemetaanMagang />} />
         </Route>
 
-        {/* Fallback jika URL tidak ditemukan */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Fallback jika URL tidak ditemukan (Menampilkan Halaman 404 Kustom) */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

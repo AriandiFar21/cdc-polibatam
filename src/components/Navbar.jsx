@@ -15,7 +15,7 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Tutup dropdown otomatis saat pindah halaman
+   
     useEffect(() => {
         setIsDropdownOpen(false);
     }, [location.pathname]);
@@ -25,35 +25,41 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-                isSolid ? 'bg-white shadow-md py-4' : 'bg-transparent py-6'
-            }`}
+            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isSolid ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
+                }`}
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
 
-                {/* Logo */}
+                {/* Logo & Teks Tersusun Vertikal di Sebelah Kanan */}
                 <Link
                     to="/"
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full transition-all ${
-                        !isSolid ? 'bg-white text-blue-900 shadow-lg' : 'bg-transparent text-blue-900'
-                    }`}
+                    className="flex items-center gap-3 transition-opacity hover:opacity-90 focus:outline-none"
                 >
-                    <span className="font-extrabold text-lg tracking-tight">
-                        CDC <span className="text-yellow-500">Polibatam</span>
-                    </span>
+                    <img
+                        src="/logo-polibatam.png"
+                        alt="Logo CDC Polibatam"
+                        className="h-12 w-auto object-contain"
+                    />
+                    <div className="flex flex-col leading-tight">
+                        <span className={`font-extrabold text-base tracking-tight ${isSolid ? 'text-blue-950' : 'text-white'}`}>
+                            CDC
+                        </span>
+                        <span className="font-bold text-xs tracking-widest text-yellow-400 mt-0.5">
+                            POLIBATAM
+                        </span>
+                    </div>
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className={`hidden lg:flex items-center gap-8 font-semibold text-sm transition-colors ${
-                    isSolid ? 'text-gray-700' : 'text-white'
-                }`}>
+                <div className={`hidden lg:flex items-center gap-8 font-semibold text-sm transition-colors ${isSolid ? 'text-gray-700' : 'text-white'
+                    }`}>
                     <Link to="/" className="hover:text-yellow-400 transition-colors">Beranda</Link>
                     <Link to="/lowongan" className="hover:text-yellow-400 transition-colors">Lowongan</Link>
                     <Link to="/pemetaan" className="hover:text-yellow-400 transition-colors">Pemetaan Magang</Link>
-                    <a 
-                        href="https://if.polibatam.ac.id/pamerin/detail.php?title=aplikasi-tracer-study-alumni-polibatam-berbasis-web&id=MzMxMjAwMTA1OQ==&ta=Mw==" 
-                        target="_blank" 
-                        rel="noreferrer" 
+                    <a
+                        href="https://if.polibatam.ac.id/pamerin/detail.php?title=aplikasi-tracer-study-alumni-polibatam-berbasis-web&id=MzMxMjAwMTA1OQ==&ta=Mw=="
+                        target="_blank"
+                        rel="noreferrer"
                         className="hover:text-yellow-400 transition-colors"
                     >
                         Tracer Study
@@ -72,27 +78,27 @@ export default function Navbar() {
                         {/* Kotak Dropdown */}
                         {isDropdownOpen && (
                             <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 text-gray-800 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                                <Link 
-                                    to="/tentang" 
+                                <Link
+                                    to="/tentang"
                                     className="block px-5 py-2.5 text-sm hover:bg-blue-50 hover:text-blue-900 font-medium transition-colors"
                                 >
                                     Tentang Kami
                                 </Link>
-                                <Link 
-                                    to="/agenda" 
+                                <Link
+                                    to="/agenda"
                                     className="block px-5 py-2.5 text-sm hover:bg-blue-50 hover:text-blue-900 font-medium transition-colors"
                                 >
                                     Agenda & Kegiatan
                                 </Link>
-                                <Link 
-                                    to="/tips" 
+                                <Link
+                                    to="/tips"
                                     className="block px-5 py-2.5 text-sm hover:bg-blue-50 hover:text-blue-900 font-medium transition-colors"
                                 >
                                     Tips & Artikel Karier
                                 </Link>
                                 <div className="my-1 border-t border-gray-100"></div>
-                                <Link 
-                                    to="/faq" 
+                                <Link
+                                    to="/faq"
                                     className="block px-5 py-2.5 text-sm hover:bg-blue-50 hover:text-blue-900 font-medium transition-colors"
                                 >
                                     FAQ (Pusat Bantuan)
@@ -106,11 +112,10 @@ export default function Navbar() {
                 <div className="hidden lg:flex items-center">
                     <Link
                         to="/admin"
-                        className={`font-bold text-sm px-6 py-2.5 rounded-full transition-all flex items-center gap-2 ${
-                            !isSolid
-                                ? 'bg-white text-blue-900 shadow-lg hover:bg-gray-100'
-                                : 'bg-blue-900 text-white hover:bg-blue-800'
-                        }`}
+                        className={`font-bold text-sm px-6 py-2.5 rounded-full transition-all flex items-center gap-2 ${!isSolid
+                            ? 'bg-white text-blue-900 shadow-lg hover:bg-gray-100'
+                            : 'bg-blue-900 text-white hover:bg-blue-800'
+                            }`}
                     >
                         <span>Portal Admin</span>
                         <span className="text-lg leading-none">↗</span>
@@ -129,4 +134,4 @@ export default function Navbar() {
             </div>
         </nav>
     );
-}   
+}

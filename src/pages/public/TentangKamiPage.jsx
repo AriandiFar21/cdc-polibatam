@@ -33,6 +33,56 @@ export default function TentangKamiPage() {
                     </motion.p>
                 </motion.div>
 
+                {/* Profil & Foto Kampus (Section Baru) */}
+                <motion.div
+                    initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
+                    className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24"
+                >
+                    <motion.div variants={fadeInUp} className="order-2 lg:order-1">
+                        <h2 className="text-3xl font-extrabold text-blue-950 mb-4">Sinergi Pendidikan dan Industri</h2>
+                        <p className="text-gray-600 leading-relaxed mb-6">
+                            Sebagai institusi pendidikan vokasi terdepan di kawasan perdagangan bebas Batam, Politeknik Negeri Batam melalui CDC hadir untuk memastikan bahwa setiap lulusan kami tidak hanya dibekali dengan keterampilan teknis yang mumpuni, tetapi juga *soft skill* yang relevan dengan tuntutan industri terkini.
+                        </p>
+                        <p className="text-gray-600 leading-relaxed mb-6">
+                            Kami secara aktif menjalin kemitraan dengan ratusan perusahaan lokal, nasional, hingga multinasional (MNC) untuk menyediakan akses langsung terhadap peluang kerja, program magang eksklusif (MyInternship), serta pelatihan kesiapan kerja yang komprehensif.
+                        </p>
+                        <div className="flex gap-8 border-t border-gray-200 pt-6">
+                            <div>
+                                <span className="block text-3xl font-extrabold text-blue-900">50+</span>
+                                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Mitra Industri</span>
+                            </div>
+                            <div>
+                                <span className="block text-3xl font-extrabold text-blue-900">6700+</span>
+                                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Alumni Sukses</span>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <motion.div variants={fadeInUp} className="order-1 lg:order-2 relative">
+                        {/* Aksen Kotak Biru di Belakang Foto */}
+                        <div className="absolute -inset-4 bg-blue-100 rounded-[2.5rem] transform rotate-3 -z-10 hidden md:block"></div>
+
+                        {/* Container Foto */}
+                        <div className="relative rounded-[2rem] overflow-hidden shadow-2xl h-[350px] md:h-[450px]">
+                            <img
+                                src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop"
+                                alt="Gedung Kampus Politeknik Negeri Batam"
+                                className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                            />
+                            {/* Overlay Gradient (Opsional biar elegan) */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-blue-950/50 to-transparent"></div>
+
+                            {/* Label Kecil di Atas Foto */}
+                            <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                                <span className="text-xs font-bold text-blue-950 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-yellow-500 inline-block animate-pulse"></span>
+                                    KAMPUS POLITEKNIK NEGERI BATAM
+                                </span>
+                            </div>
+                        </div>
+                    </motion.div>
+                </motion.div>
+
                 {/* Visi & Misi Grid */}
                 <motion.div
                     initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
@@ -122,7 +172,7 @@ export default function TentangKamiPage() {
                         >
                             Jelajahi Lowongan Kerja →
                         </a>
-                    </div>  
+                    </div>
                 </motion.div>
 
             </div>
