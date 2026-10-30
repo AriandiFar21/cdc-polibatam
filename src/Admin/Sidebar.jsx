@@ -40,7 +40,7 @@ const Sidebar = () => {
 
             <Link to="/admin/pemetaan" className={getMenuClass('/admin/pemetaan')}>
               <MapPin className="w-4 h-4" />
-              <span>Pemetaan Magang</span>
+              <span>Informasi Lowongan Magang</span>
             </Link>
 
             <Link to="/admin/tracer-study" className={getMenuClass('/admin/tracer-study')}>
