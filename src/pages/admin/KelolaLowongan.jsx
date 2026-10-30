@@ -2,13 +2,13 @@ import React, { useState, useMemo } from 'react';
 import Header from '../../Admin/Header';   // Import Header Reusable
 import Sidebar from '../../Admin/Sidebar'; // Import Sidebar Reusable
 import { 
-  Briefcase, CheckCircle2, Clock, AlertCircle, Search, Plus, 
+  Briefcase, CheckCircle2, AlertCircle, Search, Plus, 
   ExternalLink, ChevronLeft, ChevronRight, Eye, Pencil, Trash2, 
-  X, MapPin, GraduationCap, DollarSign, Globe, Building2
+  X, MapPin, Globe, AlignLeft
 } from 'lucide-react';
 
 export default function KelolaLowongan() {
-  // 1. Initial State Data Lowongan
+  // 1. Initial State Data Lowongan (Kualifikasi, IPK, dan Gaji digabung ke dalam Deskripsi)
   const [lowonganData, setLowonganData] = useState([
     {
       id: 1,
@@ -16,9 +16,7 @@ export default function KelolaLowongan() {
       perusahaan: 'PT Pegatron Technology Batam',
       lokasi: 'Batamindo Industrial Park',
       subLokasi: 'Muka Kuning • On-Site',
-      prodi: 'D4 TRPL, D3 TI',
-      gaji: 'Rp 7,5 - 11 Jt',
-      ipk: 'Min IPK 3.25',
+      deskripsi: 'Tanggung Jawab:\n• Mengembangkan antarmuka web yang responsif dan interaktif menggunakan React.js dan Tailwind CSS.\n• Berkolaborasi dengan tim UI/UX Designer untuk menerjemahkan desain wireframe menjadi kode frontend yang bersih.\n\nPersyaratan:\n• Pendidikan minimal D3/D4 Teknik Informatika, Sistem Informasi, atau bidang terkait.\n• Menguasai JavaScript (ES6+), React.js, HTML5, CSS3/Tailwind CSS.\n• Minimal IPK 3.25',
       link: 'https://careers.pegatroncorp.com',
       status: 'Aktif',
       img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=150'
@@ -29,9 +27,7 @@ export default function KelolaLowongan() {
       perusahaan: 'PT McDermott Indonesia',
       lokasi: 'Kawasan Industri Batu Ampar',
       subLokasi: 'Batu Ampar • Yard',
-      prodi: 'D3 Teknik Mesin',
-      gaji: 'Rp 6 - 8,2 Jt',
-      ipk: 'Min IPK 3.00',
+      deskripsi: 'Tanggung Jawab:\n• Membuat gambar teknik atau drafting untuk struktur mekanikal perkapalan.\n• Membantu insinyur senior dalam perhitungan spesifikasi material proyek.\n\nPersyaratan:\n• Lulusan D3/D4 Teknik Mesin.\n• Mampu mengoperasikan AutoCAD 2D/3D dan SolidWorks.\n• Minimal IPK 3.00',
       link: 'https://mcdermott.myworkdayjobs.com',
       status: 'Aktif',
       img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=150'
@@ -42,48 +38,18 @@ export default function KelolaLowongan() {
       perusahaan: 'PT Infineon Technologies Batam',
       lokasi: 'Batamindo Industrial Park',
       subLokasi: 'Muka Kuning • Cleanroom',
-      prodi: 'Teknik Elektro, Mekatronika',
-      gaji: 'Rp 6,8 - 9,5 Jt',
-      ipk: 'Min IPK 3.10',
+      deskripsi: 'Melakukan inspeksi kualitas pada komponen semikonduktor serta memastikan semua produk memenuhi standar ISO dan spesifikasi klien.\n\nKualifikasi:\n• D3/D4 Teknik Elektro atau Mekatronika (Min IPK 3.10).\n• Memahami konsep Quality Control (QC) dan jaminan mutu industri manufaktur.\n• Teliti dan mampu bekerja dalam ruangan cleanroom.',
       link: 'https://infineon.com/careers',
-      status: 'Review',
+      status: 'Aktif',
       img: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=150'
     },
     {
       id: 4,
-      judul: 'PLC & Automation Engineer',
-      perusahaan: 'PT Schneider Electric Batam',
-      lokasi: 'Batamindo Industrial Park',
-      subLokasi: 'Muka Kuning • Smart Plant',
-      prodi: 'D4 Robotika, Mekatronika',
-      gaji: 'Rp 8 - 12,5 Jt',
-      ipk: 'Min IPK 3.20',
-      link: 'https://se.com/id/careers',
-      status: 'Aktif',
-      img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=150'
-    },
-    {
-      id: 5,
-      judul: 'CNC Milling & Tooling Technician',
-      perusahaan: 'PT Shimano Batam',
-      lokasi: 'Panbil Industrial Estate',
-      subLokasi: 'Panbil • Workshop',
-      prodi: 'D3 Teknik Mesin, Manufaktur',
-      gaji: 'Rp 5,7 - 7,5 Jt',
-      ipk: 'Min IPK 2.90',
-      link: 'https://forms.gle/Shimano2025',
-      status: 'Aktif',
-      img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=150'
-    },
-    {
-      id: 6,
       judul: 'Piping Stress Analysis Engineer',
       perusahaan: 'PT Bredero Shaw Indonesia',
       lokasi: 'Kabil Integrated Estate',
       subLokasi: 'Kabil',
-      prodi: 'Teknik Mesin, Perkapalan',
-      gaji: 'Rp 9 - 14 Jt',
-      ipk: '-',
+      deskripsi: 'Tanggung Jawab:\n• Melakukan analisis tegangan pada sistem perpipaan untuk instalasi lepas pantai (offshore).\n• Memastikan desain pipa aman dari tekanan internal dan eksternal.\n\nPersyaratan Khusus:\n• S1 Teknik Mesin atau Perkapalan.\n• Pengalaman minimal 1 tahun di bidang analisis perpipaan.\n• Menguasai software Caesar II atau AutoPIPE.',
       link: '#',
       status: 'Ditutup',
       img: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&q=80&w=150'
@@ -104,16 +70,14 @@ export default function KelolaLowongan() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // 4. Form State (Tambah & Edit)
+  // 4. Form State (Disesuaikan, tanpa kualifikasi, ipk, dan gaji)
   const emptyForm = {
     id: null,
     judul: '',
     perusahaan: '',
-    lokasi: 'Batamindo Industrial Park',
+    lokasi: '',
     subLokasi: '',
-    prodi: '',
-    gaji: '',
-    ipk: '',
+    deskripsi: '',
     link: '',
     status: 'Aktif',
     img: ''
@@ -123,7 +87,6 @@ export default function KelolaLowongan() {
   // 5. Computed Stats Cards
   const totalLowongan = lowonganData.length;
   const totalAktif = lowonganData.filter(d => d.status === 'Aktif').length;
-  const totalReview = lowonganData.filter(d => d.status === 'Review').length;
   const totalDitutup = lowonganData.filter(d => d.status === 'Ditutup').length;
 
   // 6. Handling Filtering
@@ -133,7 +96,7 @@ export default function KelolaLowongan() {
       const matchSearch = 
         item.judul.toLowerCase().includes(query) ||
         item.perusahaan.toLowerCase().includes(query) ||
-        item.prodi.toLowerCase().includes(query);
+        item.deskripsi.toLowerCase().includes(query);
 
       const matchStatus = statusFilter === 'Semua' ? true : item.status === statusFilter;
       const matchKawasan = kawasanFilter === 'Semua' ? true : item.lokasi.toLowerCase().includes(kawasanFilter.toLowerCase());
@@ -209,8 +172,6 @@ export default function KelolaLowongan() {
     switch (status) {
       case 'Aktif':
         return <span className="bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold text-xs px-2.5 py-1 rounded-full">Aktif</span>;
-      case 'Review':
-        return <span className="bg-amber-50 text-amber-600 border border-amber-200 font-bold text-xs px-2.5 py-1 rounded-full">Review</span>;
       case 'Ditutup':
         return <span className="bg-slate-100 text-slate-500 border border-slate-200 font-medium text-xs px-2.5 py-1 rounded-full">Ditutup</span>;
       default:
@@ -234,7 +195,7 @@ export default function KelolaLowongan() {
         <main className="flex-1 p-6 space-y-6 overflow-y-auto w-full">
           
           {/* Ringkasan Kartu Indikator Utama */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
               <div>
                 <p className="text-[11px] font-bold text-slate-400 uppercase">TOTAL LOWONGAN</p>
@@ -252,16 +213,6 @@ export default function KelolaLowongan() {
               </div>
               <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg">
                 <CheckCircle2 className="w-5 h-5" />
-              </div>
-            </div>
-
-            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-              <div>
-                <p className="text-[11px] font-bold text-slate-400 uppercase">MENUNGGU REVIEW</p>
-                <p className="text-2xl font-black text-slate-900 mt-0.5">{totalReview} <span className="text-xs font-normal text-slate-500">perlu ditinjau</span></p>
-              </div>
-              <div className="p-2.5 bg-amber-50 text-amber-600 rounded-lg">
-                <Clock className="w-5 h-5" />
               </div>
             </div>
 
@@ -299,7 +250,7 @@ export default function KelolaLowongan() {
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
               <input
                 type="text"
-                placeholder="Cari posisi lowongan, perusahaan, atau prodi..."
+                placeholder="Cari posisi lowongan, perusahaan, atau detail deskripsi..."
                 value={searchQuery}
                 onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
                 className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -314,7 +265,6 @@ export default function KelolaLowongan() {
               >
                 <option value="Semua">Semua Status</option>
                 <option value="Aktif">Aktif Tayang</option>
-                <option value="Review">Menunggu Review</option>
                 <option value="Ditutup">Pendaftaran Ditutup</option>
               </select>
 
@@ -338,9 +288,9 @@ export default function KelolaLowongan() {
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-50 text-slate-400 font-bold uppercase border-b border-slate-100">
                   <tr>
-                    <th className="p-4">LOWONGAN &amp; PERUSAHAAN</th>
-                    <th className="p-4">LOKASI</th>
-                    <th className="p-4">KUALIFIKASI &amp; PRODI</th>
+                    <th className="p-4 w-[28%]">LOWONGAN &amp; PERUSAHAAN</th>
+                    <th className="p-4 w-[18%]">LOKASI</th>
+                    <th className="p-4 w-[25%]">DESKRIPSI PEKERJAAN</th>
                     <th className="p-4">PORTAL EKSTERNAL</th>
                     <th className="p-4 text-center">STATUS</th>
                     <th className="p-4 text-center">AKSI</th>
@@ -363,14 +313,11 @@ export default function KelolaLowongan() {
                           </div>
                         </td>
                         <td className="p-4">
-                          <p className="font-bold text-slate-800">{item.lokasi}</p>
+                          <p className="font-bold text-slate-800">{item.lokasi || '-'}</p>
                           <p className="text-[11px] text-slate-400">{item.subLokasi || '-'}</p>
                         </td>
                         <td className="p-4">
-                          <p className="font-bold text-slate-800">{item.prodi}</p>
-                          <p className="text-[11px] text-slate-500">
-                            {item.gaji || 'Gaji Confidential'} {item.ipk && item.ipk !== '-' ? `• ${item.ipk}` : ''}
-                          </p>
+                          <p className="text-slate-600 line-clamp-2">{item.deskripsi || '-'}</p>
                         </td>
                         <td className="p-4">
                           {item.status !== 'Ditutup' && item.link && item.link !== '#' ? (
@@ -392,7 +339,6 @@ export default function KelolaLowongan() {
                         </td>
                         <td className="p-4 text-center">
                           <div className="flex items-center justify-center space-x-1">
-                            {/* Detail Button */}
                             <button 
                               type="button" 
                               title="Lihat Detail"
@@ -401,7 +347,6 @@ export default function KelolaLowongan() {
                             >
                               <Eye className="w-4 h-4" />
                             </button>
-                            {/* Edit Button */}
                             <button 
                               type="button" 
                               title="Edit Lowongan"
@@ -410,7 +355,6 @@ export default function KelolaLowongan() {
                             >
                               <Pencil className="w-4 h-4" />
                             </button>
-                            {/* Delete Button */}
                             <button 
                               type="button" 
                               title="Hapus Lowongan"
@@ -437,7 +381,8 @@ export default function KelolaLowongan() {
             {/* Footer Pagination */}
             <div className="p-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-3">
               <p>
-                Menampilkan <span className="font-bold text-slate-800">{filteredData.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0} - {Math.min(currentPage * itemsPerPage, filteredData.length)}</span> dari <span className="font-bold text-slate-800">{filteredData.length}</span> lowongan
+                Menampilkan <span className="font-bold text-slate-800">{filteredData.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0}
+                - {Math.min(currentPage * itemsPerPage, filteredData.length)}</span> dari <span className="font-bold text-slate-800">{filteredData.length}</span> lowongan
               </p>
               
               <div className="flex items-center space-x-2">
@@ -550,16 +495,16 @@ export default function KelolaLowongan() {
                   />
                 </div>
 
-                {/* Kawasan Industri (Lokasi Utama) */}
+                {/* Kawasan Industri (Tidak Wajib) */}
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Kawasan Industri / Lokasi <span className="text-red-500">*</span></label>
+                  <label className="block font-bold text-slate-700 mb-1">Kawasan Industri / Lokasi</label>
                   <select
                     name="lokasi"
-                    required
                     value={formData.lokasi}
                     onChange={handleFormChange}
                     className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
                   >
+                    <option value="">Pilih Lokasi (Opsional)</option>
                     <option value="Batamindo Industrial Park">Batamindo Industrial Park</option>
                     <option value="Kawasan Industri Batu Ampar">Kawasan Industri Batu Ampar</option>
                     <option value="Panbil Industrial Estate">Panbil Industrial Estate</option>
@@ -581,47 +526,21 @@ export default function KelolaLowongan() {
                   />
                 </div>
 
-                {/* Kualifikasi Prodi / Jurusan */}
+                {/* Deskripsi Pekerjaan Baru (Digabung Kualifikasi, IPK, Gaji) */}
                 <div className="md:col-span-2">
-                  <label className="block font-bold text-slate-700 mb-1">Kualifikasi Prodi / Jurusan Target <span className="text-red-500">*</span></label>
-                  <input
-                    type="text"
-                    name="prodi"
+                  <label className="block font-bold text-slate-700 mb-1">Deskripsi &amp; Kualifikasi Pekerjaan <span className="text-red-500">*</span></label>
+                  <textarea
+                    name="deskripsi"
                     required
-                    placeholder="Contoh: D4 TRPL, D3 TI, Mekatronika"
-                    value={formData.prodi}
+                    rows="7"
+                    placeholder="Contoh:&#10;Tanggung Jawab:&#10;• Mengembangkan antarmuka web...&#10;&#10;Kualifikasi & Persyaratan:&#10;• Minimal IPK 3.00...&#10;• Kisaran Gaji: Rp 5 Jt..."
+                    value={formData.deskripsi}
                     onChange={handleFormChange}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none leading-relaxed"
                   />
                 </div>
 
-                {/* Syarat IPK */}
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">Syarat IPK Minimal</label>
-                  <input
-                    type="text"
-                    name="ipk"
-                    placeholder="Contoh: Min IPK 3.25 atau -"
-                    value={formData.ipk}
-                    onChange={handleFormChange}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                {/* Kisaran Gaji */}
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">Kisaran Gaji</label>
-                  <input
-                    type="text"
-                    name="gaji"
-                    placeholder="Contoh: Rp 7,5 - 11 Jt"
-                    value={formData.gaji}
-                    onChange={handleFormChange}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                {/* Status Publikasi */}
+                {/* Status Publikasi (Hanya Aktif & Ditutup) */}
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">Status Lowongan <span className="text-red-500">*</span></label>
                   <select
@@ -631,7 +550,6 @@ export default function KelolaLowongan() {
                     className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
                   >
                     <option value="Aktif">Aktif</option>
-                    <option value="Review">Review</option>
                     <option value="Ditutup">Ditutup</option>
                   </select>
                 </div>
@@ -676,7 +594,7 @@ export default function KelolaLowongan() {
       {/* ==================== 2. MODAL DETAIL LOWONGAN ==================== */}
       {isDetailOpen && selectedItem && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200">
             
             {/* Modal Header */}
             <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
@@ -702,34 +620,27 @@ export default function KelolaLowongan() {
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 space-y-4 text-xs text-slate-700">
+            <div className="p-6 overflow-y-auto space-y-5 text-xs text-slate-700">
               <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <span className="font-semibold text-slate-500">Status Pendaftaran</span>
                 {getStatusBadge(selectedItem.status)}
               </div>
 
-              <div className="space-y-3">
+              {/* Paragraf Deskripsi & Persyaratan Lengkap */}
+              <div>
+                <h4 className="font-bold text-slate-900 text-sm mb-2 flex items-center gap-1.5"><AlignLeft className="w-4 h-4 text-blue-600"/> Deskripsi &amp; Persyaratan</h4>
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                  <p className="text-slate-600 whitespace-pre-line leading-relaxed">{selectedItem.deskripsi || '-'}</p>
+                </div>
+              </div>
+
+              {/* Detail Info Baris */}
+              <div className="space-y-3 pt-4 border-t border-slate-100">
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-bold text-slate-900">Lokasi Penempatan</p>
-                    <p className="text-slate-600">{selectedItem.lokasi} {selectedItem.subLokasi && `(${selectedItem.subLokasi})`}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <GraduationCap className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-bold text-slate-900">Kualifikasi Prodi / Jurusan</p>
-                    <p className="text-slate-600">{selectedItem.prodi} {selectedItem.ipk && selectedItem.ipk !== '-' ? `• ${selectedItem.ipk}` : ''}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <DollarSign className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-bold text-slate-900">Estimasi Gaji</p>
-                    <p className="text-slate-600">{selectedItem.gaji || 'Sesuai Kesepakatan'}</p>
+                    <p className="text-slate-600">{selectedItem.lokasi || 'Tidak diatur'} {selectedItem.subLokasi && `(${selectedItem.subLokasi})`}</p>
                   </div>
                 </div>
 
