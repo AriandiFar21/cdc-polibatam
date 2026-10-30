@@ -12,6 +12,44 @@ const staggerContainer = {
     visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
+// Komponen helper untuk efek teks ngacak (scramble) saat discroll
+function ScrambleText({ text }) {
+    const [displayValue, setDisplayValue] = useState(text);
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+<>%';
+
+    return (
+        <motion.span
+            onViewportEnter={() => {
+                if (hasAnimated) return;
+                setHasAnimated(true);
+                let iteration = 0;
+                const interval = setInterval(() => {
+                    setDisplayValue(
+                        text
+                            .split('')
+                            .map((char, index) => {
+                                if (index < iteration) {
+                                    return text[index];
+                                }
+                                return chars[Math.floor(Math.random() * chars.length)];
+                            })
+                            .join('')
+                    );
+                    if (iteration >= text.length) {
+                        clearInterval(interval);
+                        setDisplayValue(text);
+                    }
+                    iteration += 1 / 3;
+                }, 30);
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+        >
+            {displayValue}
+        </motion.span>
+    );
+}
+
 const mitraRow1 = ["PT McDermott Indonesia", "PT Pegatron Technology", "PT Panasonic Industrial", "Bank Indonesia", "PT Kinema Systrans", "PT Sat Nusapersada", "PT Telkom Indonesia", "PT Infineon Technologies"];
 const mitraRow2 = ["Universiti Teknologi Malaysia", "Sekolah Tinggi Teknologi Pekanbaru", "Politeknik Aceh Selatan", "SMA Negeri 3 Dumai", "Ming Chi University of Technology", "Advance Pact SDN BHD", "Universitas Indonesia"];
 const mitraRow3 = ["PT ESSA Consulting", "PT Sinergi Aitikom", "Gojek", "Kimchi Medika", "RSUD Petala Bumi", "Dinas Pemuda dan Olahraga", "Pemerintah Kota Batam", "BP Batam"];
@@ -41,11 +79,8 @@ const IconCheck = () => <svg className="w-6 h-6" fill="none" stroke="currentColo
 const IconBook = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>;
 const IconUser = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>;
 const IconBriefcase = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
-const IconStar = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>;
 const IconClock = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
 const IconBuilding = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>;
-const IconCog = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>;
-const IconShield = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>;
 const IconDesktop = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
 
 
@@ -146,7 +181,6 @@ export default function LandingPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
                         <motion.div variants={fadeInUp} className="relative flex justify-center lg:justify-start">
                             <div className="h-[400px] w-full max-w-md bg-gray-200 rounded-[2rem] overflow-hidden relative shadow-lg">
-                                {/* Gambar di-fix */}
                                 <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop')" }}></div>
                             </div>
                         </motion.div>
@@ -175,17 +209,10 @@ export default function LandingPage() {
                             { title: "15", desc: "Program Studi", icon: <IconBook />, type: "light" },
                             { title: "106", desc: "Dosen", icon: <IconUser />, type: "light" },
                             { title: "40%", desc: "Bekerja Sebelum Lulus", icon: <IconBriefcase />, type: "light" },
-                            { title: "400+", desc: "Penerima Beasiswa", icon: <IconStar />, type: "light" },
 
                             { title: "3900+", desc: "Mahasiswa Aktif", icon: <IconUser />, type: "light" },
-                            { title: "Satu", desc: "Guru Besar", icon: <IconTrophy />, type: "light" },
                             { title: "< 2 Bulan", desc: "Masa Tunggu Lulusan", icon: <IconClock />, type: "light" },
-                            { title: "100%", desc: "Fasilitas Modern", icon: <IconBuilding />, type: "light" },
-
-                            { title: "60%", desc: "Praktikum", icon: <IconCog />, type: "light" },
-                            { title: "100%", desc: "Mahasiswa Diasuransikan", icon: <IconShield />, type: "light" },
                             { title: "6700+", desc: "Alumni", icon: <IconUser />, type: "light" },
-                            { title: "100+", desc: "Lab Modern", icon: <IconDesktop />, type: "light" },
                         ].map((stat, idx) => (
                             stat.type === "dark" ? (
                                 <div key={idx} className="flex items-center p-2.5 bg-blue-900 rounded-full shadow-md">
@@ -193,7 +220,9 @@ export default function LandingPage() {
                                         {stat.icon}
                                     </div>
                                     <div>
-                                        <h4 className="text-xl font-bold text-white">{stat.title}</h4>
+                                        <h4 className="text-xl font-bold text-white">
+                                            <ScrambleText text={stat.title} />
+                                        </h4>
                                         <p className="text-xs text-blue-200 font-medium">{stat.desc}</p>
                                     </div>
                                 </div>
@@ -203,7 +232,9 @@ export default function LandingPage() {
                                         {stat.icon}
                                     </div>
                                     <div>
-                                        <h4 className="text-xl font-bold text-gray-900">{stat.title}</h4>
+                                        <h4 className="text-xl font-bold text-gray-900">
+                                            <ScrambleText text={stat.title} />
+                                        </h4>
                                         <p className="text-xs text-gray-500 font-medium">{stat.desc}</p>
                                     </div>
                                 </div>
@@ -243,7 +274,6 @@ export default function LandingPage() {
 
                         <motion.div variants={fadeInUp} className="lg:w-2/3">
                             <div className="relative h-[400px] rounded-3xl overflow-hidden group cursor-pointer shadow-2xl">
-                                {/* Gambar Headline Agenda */}
                                 <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?q=80&w=2070&auto=format&fit=crop')" }}></div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-900/30 to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 p-8 w-full">
@@ -266,7 +296,6 @@ export default function LandingPage() {
                         <motion.div variants={fadeInUp} className="group cursor-pointer">
                             <h4 className="text-lg font-semibold mb-4 text-white">Workshop & Pelatihan</h4>
                             <div className="h-52 rounded-2xl overflow-hidden mb-4 relative shadow-lg">
-                                {/* Gambar Sub Berita 1 */}
                                 <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop')" }}></div>
                             </div>
                             <h3 className="text-sm font-bold mb-2 leading-relaxed group-hover:text-yellow-400 transition-colors">
@@ -278,7 +307,6 @@ export default function LandingPage() {
                         <motion.div variants={fadeInUp} className="group cursor-pointer">
                             <h4 className="text-lg font-semibold mb-4 text-white">Kegiatan Alumni</h4>
                             <div className="h-52 rounded-2xl overflow-hidden mb-4 relative shadow-lg">
-                                {/* Gambar Sub Berita 2 */}
                                 <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1515169067868-5387ec356754?q=80&w=2070&auto=format&fit=crop')" }}></div>
                             </div>
                             <h3 className="text-sm font-bold mb-2 leading-relaxed group-hover:text-yellow-400 transition-colors">
@@ -290,7 +318,6 @@ export default function LandingPage() {
                         <motion.div variants={fadeInUp} className="group cursor-pointer">
                             <h4 className="text-lg font-semibold mb-4 text-white">Pengumuman Rekrutmen</h4>
                             <div className="h-52 rounded-2xl overflow-hidden mb-4 relative shadow-lg">
-                                {/* Gambar Sub Berita 3 */}
                                 <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=2069&auto=format&fit=crop')" }}></div>
                             </div>
                             <h3 className="text-sm font-bold mb-2 leading-relaxed group-hover:text-yellow-400 transition-colors">
