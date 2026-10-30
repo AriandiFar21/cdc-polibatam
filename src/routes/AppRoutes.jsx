@@ -17,7 +17,7 @@ import Footer from '../components/Footer';
 import LoginPage from '../pages/admin/LoginPage';
 import DashboardPage from '../pages/admin/DashboardPage';
 import KelolaLowongan from '../pages/admin/KelolaLowongan';
-import PemetaanMagang from '../pages/admin/PemetaanMagang';
+import PemetaanMagang from '../pages/admin/InformasiMagang';
 
 // Layout Khusus Publik (Navbar & Footer Hanya Muncul di Sini)
 const PublicLayout = () => {
