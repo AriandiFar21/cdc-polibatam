@@ -138,31 +138,4 @@ export const dummyLowongan = [
             "Jenjang karier jelas"
         ]
     },
-    {
-        id: 6,
-        posisi: "Quality Control Inspector",
-        perusahaan: "PT Panasonic Industrial Devices",
-        lokasi: "Batam Center, Batam",
-        tipe: "Contract",
-        kategori: "Manufacturing",
-        batas: "20 November 2026",
-        linkEksternal: "https://example.com/apply-6",
-        logo: "PI",
-        deskripsiPerusahaan: "PT Panasonic Industrial Devices Batam memproduksi komponen elektronik dan perangkat presisi tinggi untuk pasar ekspor.",
-        deskripsiPekerjaan: [
-            "Melakukan pemeriksaan kualitas komponen produk sesuai standar SOP perusahaan.",
-            "Mengoperasikan alat ukur presisi dan mencatat hasil inspeksi harian.",
-            "Melaporkan temuan cacat produksi kepada supervisor."
-        ],
-        kualifikasi: [
-            "Lulusan D3 Teknik Elektro / Teknik Mesin / Manufaktur.",
-            "Memiliki ketelitian tinggi dan dapat membaca gambar teknik.",
-            "Mampu bekerja sama dalam tim shift produksi."
-        ],
-        benefit: [
-            "Kontrak kerja resmi",
-            "Transportasi jemputan karyawan",
-            "Asuransi kesehatan"
-        ]
-    }
 ];

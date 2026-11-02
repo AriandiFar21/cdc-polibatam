@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
+    hidden: { opacity: 0, y: 60 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } },
 };
 
-// Komponen helper untuk efek teks ngacak (scramble) saat discroll
 function ScrambleText({ text }) {
     const [displayValue, setDisplayValue] = useState(text);
     const [hasAnimated, setHasAnimated] = useState(false);
@@ -80,9 +79,6 @@ const IconBook = () => <svg className="w-6 h-6" fill="none" stroke="currentColor
 const IconUser = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>;
 const IconBriefcase = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
 const IconClock = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-const IconBuilding = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>;
-const IconDesktop = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
-
 
 const MarqueeRow = ({ items, direction = "left", speed = 40 }) => {
     const loopItems = [...items, ...items];
@@ -106,9 +102,16 @@ const MarqueeRow = ({ items, direction = "left", speed = 40 }) => {
     );
 };
 
-
 export default function LandingPage() {
+    const [isLoading, setIsLoading] = useState(true);
     const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1400);
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -119,8 +122,35 @@ export default function LandingPage() {
 
     return (
         <div className="font-sans overflow-hidden bg-gray-50">
+            {/* MODERN INTRO LOADING SCREEN (Gaya Animasi Intro) */}
+            <AnimatePresence>
+                {isLoading && (
+                    <motion.div
+                        initial={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+                        exit={{
+                            clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
+                            transition: { duration: 0.8, ease: [0.77, 0, 0.175, 1] }
+                        }}
+                        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-blue-950 text-white"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 1.1, opacity: 0 }}
+                            transition={{ duration: 0.4 }}
+                            className="flex flex-col items-center gap-4"
+                        >
+                            <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+                            <div className="text-center">
+                                <h2 className="text-xl font-extrabold tracking-wider">CDC POLIBATAM</h2>
+                                <p className="text-xs text-blue-200 mt-1 uppercase tracking-widest">Menyiapkan Ekosistem Karier...</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-            {/* 1. HERO SECTION (Carousel) */}
+            {/* 1. HERO SECTION (Muncul bertahap setelah loading selesai) */}
             <section className="relative h-screen flex flex-col justify-center px-6 lg:px-24 text-white overflow-hidden">
                 {heroSlides.map((slide, idx) => (
                     <div
@@ -138,7 +168,9 @@ export default function LandingPage() {
                 <motion.div
                     key={currentSlide}
                     className="relative z-10 max-w-4xl"
-                    initial="hidden" animate="visible" variants={staggerContainer}
+                    initial="hidden"
+                    animate={!isLoading ? "visible" : "hidden"}
+                    variants={staggerContainer}
                 >
                     <motion.div variants={fadeInUp} className="flex items-center gap-2 mb-4">
                         <span className="text-yellow-400 font-bold italic">//</span>
@@ -160,7 +192,6 @@ export default function LandingPage() {
                     </motion.div>
                 </motion.div>
 
-                {/* Carousel Indicators */}
                 <div className="absolute bottom-12 right-12 z-20 flex gap-3">
                     {heroSlides.map((_, idx) => (
                         <button
@@ -172,7 +203,7 @@ export default function LandingPage() {
                 </div>
             </section>
 
-            {/* 2. FAKTA DAN STATISTIK */}
+            {/* 2. FAKTA DAN STATISTIK (Slide turun satu persatu saat di-scroll) */}
             <section className="py-24 px-6 lg:px-24 bg-white relative">
                 <motion.div
                     initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
@@ -199,7 +230,7 @@ export default function LandingPage() {
                         </motion.div>
                     </div>
 
-                    <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+                    <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
                         {[
                             { title: "Unggul", desc: "Akreditasi Institusi", icon: <IconTrophy />, type: "dark" },
                             { title: "50+", desc: "Mitra Kerjasama", icon: <IconHandshake />, type: "dark" },
@@ -214,31 +245,29 @@ export default function LandingPage() {
                             { title: "< 2 Bulan", desc: "Masa Tunggu Lulusan", icon: <IconClock />, type: "light" },
                             { title: "6700+", desc: "Alumni", icon: <IconUser />, type: "light" },
                         ].map((stat, idx) => (
-                            stat.type === "dark" ? (
-                                <div key={idx} className="flex items-center p-2.5 bg-blue-900 rounded-full shadow-md">
-                                    <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mr-4 shrink-0 text-blue-900">
-                                        {stat.icon}
+                            <motion.div key={idx} variants={fadeInUp}>
+                                {stat.type === "dark" ? (
+                                    <div className="flex items-center p-2.5 bg-blue-900 rounded-full shadow-md">
+                                        <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mr-4 shrink-0 text-blue-900">
+                                            {stat.icon}
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-white"><ScrambleText text={stat.title} /></h4>
+                                            <p className="text-xs text-blue-200 font-medium">{stat.desc}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h4 className="text-xl font-bold text-white">
-                                            <ScrambleText text={stat.title} />
-                                        </h4>
-                                        <p className="text-xs text-blue-200 font-medium">{stat.desc}</p>
+                                ) : (
+                                    <div className="flex items-center p-2.5 bg-transparent">
+                                        <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center mr-4 shrink-0 text-white shadow-sm">
+                                            {stat.icon}
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-gray-900"><ScrambleText text={stat.title} /></h4>
+                                            <p className="text-xs text-gray-500 font-medium">{stat.desc}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <div key={idx} className="flex items-center p-2.5 bg-transparent">
-                                    <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center mr-4 shrink-0 text-white shadow-sm">
-                                        {stat.icon}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-xl font-bold text-gray-900">
-                                            <ScrambleText text={stat.title} />
-                                        </h4>
-                                        <p className="text-xs text-gray-500 font-medium">{stat.desc}</p>
-                                    </div>
-                                </div>
-                            )
+                                )}
+                            </motion.div>
                         ))}
                     </motion.div>
                 </motion.div>
@@ -292,7 +321,7 @@ export default function LandingPage() {
                         </motion.div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <motion.div variants={fadeInUp} className="group cursor-pointer">
                             <h4 className="text-lg font-semibold mb-4 text-white">Workshop & Pelatihan</h4>
                             <div className="h-52 rounded-2xl overflow-hidden mb-4 relative shadow-lg">
@@ -325,7 +354,7 @@ export default function LandingPage() {
                             </h3>
                             <p className="text-xs text-blue-200">2 Bulan yang lalu</p>
                         </motion.div>
-                    </div>
+                    </motion.div>
                 </motion.div>
             </section>
 
@@ -354,7 +383,6 @@ export default function LandingPage() {
                     <MarqueeRow items={mitraRow3} direction="left" speed={50} />
                 </div>
             </section>
-
         </div>
     );
 }
