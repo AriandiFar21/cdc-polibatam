@@ -9,7 +9,7 @@ import TentangKamiPage from '../pages/public/TentangKamiPage';
 import Agenda from '../pages/public/AgendaPage';
 import FAQPage from '../pages/public/FAQPage';
 import TipsPage from '../pages/public/TipsPage';
-import NotFoundPage from '../pages/public/NotFoundPage'; // <-- Tambahan Import Halaman 404
+import NotFoundPage from '../pages/public/NotFoundPage';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 

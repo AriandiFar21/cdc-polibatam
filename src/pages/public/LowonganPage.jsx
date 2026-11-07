@@ -18,6 +18,34 @@ export default function LowonganPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("Semua");
 
+    // State untuk Fitur (Loading, Network Error, & Input Error)
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [searchError, setSearchError] = useState("");
+
+    // Fungsi Handler Input Pencarian + Validasi Otomatis (Merah saat ada simbol)
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+
+        // Validasi: jika mengandung simbol khusus
+        const invalidPattern = /[@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
+        if (invalidPattern.test(value)) {
+            setSearchError("Format pencarian tidak valid (tidak boleh pakai simbol)");
+        } else {
+            setSearchError("");
+        }
+    };
+
+    // Fungsi simulasi muat ulang data (Retry Action)
+    const handleRetry = () => {
+        setIsError(false);
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1200);
+    };
+
     const filteredJobs = dummyLowongan.filter((job) => {
         const matchesSearch = job.posisi.toLowerCase().includes(searchTerm.toLowerCase()) ||
             job.perusahaan.toLowerCase().includes(searchTerm.toLowerCase());
@@ -26,7 +54,7 @@ export default function LowonganPage() {
     });
 
     return (
-        <div className="min-h-screen bg-gray-50 pt-32 pb-24 font-sans">
+        <div className="min-h-screen bg-gray-50 pt-32 pb-24 font-sans relative">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
                 {/* Header Section */}
@@ -51,17 +79,38 @@ export default function LowonganPage() {
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
                     className="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row gap-4 items-center justify-between"
                 >
+                    {/* Search Input Container dengan State Merah/Error */}
                     <div className="relative w-full md:w-96">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </span>
+
                         <input
                             type="text"
                             placeholder="Cari posisi atau perusahaan..."
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-900 text-sm text-gray-800"
+                            onChange={handleSearchChange}
+                            className={`w-full pl-12 pr-10 py-3 rounded-2xl focus:outline-none text-sm transition-all ${searchError
+                                ? 'bg-red-50 border-2 border-red-500 text-red-900 placeholder-red-300 focus:ring-2 focus:ring-red-400'
+                                : 'bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-blue-900'
+                                }`}
                         />
+
+                        {/* Ikon Peringatan saat Error Input */}
+                        {searchError && (
+                            <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-red-500">
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                </svg>
+                            </span>
+                        )}
+
+                        {/* Pesan Teks Error Merah di Bawah Input */}
+                        {searchError && (
+                            <p className="text-red-500 text-xs mt-1.5 ml-2 font-semibold flex items-center gap-1">
+                                <span>{searchError}</span>
+                            </p>
+                        )}
                     </div>
 
                     <div className="flex flex-wrap gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
@@ -80,8 +129,54 @@ export default function LowonganPage() {
                     </div>
                 </motion.div>
 
-                {/* Job Cards Grid */}
-                {filteredJobs.length > 0 ? (
+                {/* CONDITIONAL RENDERING: LOADING, ERROR, EMPTY, ATAU GRID DATA */}
+                {isLoading ? (
+                    /* 1. LOADING STATE (Skeleton List + Spinner Biru) */
+                    <div className="space-y-8">
+                        <div className="flex justify-center my-4">
+                            <div className="w-10 h-10 border-4 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {[1, 2, 3, 4, 5, 6].map((n) => (
+                                <div key={n} className="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm animate-pulse flex flex-col justify-between">
+                                    <div>
+                                        <div className="flex justify-between items-start mb-6">
+                                            <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
+                                            <div className="w-20 h-6 bg-gray-200 rounded-full"></div>
+                                        </div>
+                                        <div className="h-6 bg-gray-200 rounded-md w-3/4 mb-3"></div>
+                                        <div className="h-4 bg-gray-200 rounded-md w-1/2 mb-6"></div>
+                                        <div className="space-y-3 mb-6">
+                                            <div className="h-4 bg-gray-200 rounded-md w-2/3"></div>
+                                            <div className="h-4 bg-gray-200 rounded-md w-1/2"></div>
+                                        </div>
+                                    </div>
+                                    <div className="pt-6 border-t border-gray-100">
+                                        <div className="h-12 bg-gray-200 rounded-2xl w-full"></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : isError ? (
+                    /* 2. ERROR STATE (Teks Kesalahan Jaringan + Tombol Muat Ulang) */
+                    <div className="text-center py-20 bg-white rounded-3xl border border-gray-200 max-w-xl mx-auto shadow-sm">
+                        <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Terjadi kesalahan jaringan.</h3>
+                        <p className="text-gray-500 font-medium mb-6">Coba lagi nanti.</p>
+                        <button
+                            onClick={handleRetry}
+                            className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-2xl transition-colors text-sm shadow-md"
+                        >
+                            Muat Ulang
+                        </button>
+                    </div>
+                ) : filteredJobs.length > 0 ? (
+                    /* 3. NORMAL STATE (Grid Kartu Lowongan) */
                     <motion.div
                         initial="hidden" animate="visible" variants={staggerContainer}
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -133,11 +228,18 @@ export default function LowonganPage() {
                         ))}
                     </motion.div>
                 ) : (
-                    <div className="text-center py-20 bg-white rounded-3xl border border-gray-200">
-                        <p className="text-gray-500 font-medium text-lg">Lowongan yang kamu cari tidak ditemukan.</p>
+                    /* 4. EMPTY STATE */
+                    <div className="text-center py-20 bg-white rounded-3xl border border-gray-200 max-w-xl mx-auto shadow-sm">
+                        <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Belum ada lowongan yang cocok dengan filter Anda.</h3>
+                        <p className="text-gray-500 font-medium text-sm mb-6">Coba cari dengan kata kunci lain atau ubah kategori pilihan Anda.</p>
                         <button
-                            onClick={() => { setSearchTerm(""); setSelectedCategory("Semua"); }}
-                            className="mt-4 text-blue-900 font-bold hover:underline"
+                            onClick={() => { setSearchTerm(""); setSelectedCategory("Semua"); setSearchError(""); }}
+                            className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-2xl transition-colors text-sm shadow-md"
                         >
                             Reset Filter Pencarian
                         </button>
