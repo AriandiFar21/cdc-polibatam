@@ -18,7 +18,7 @@ export default function LowonganPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("Semua");
 
-    // State Tambahan untuk Fitur Handoff (Loading, Network Error, & Input Error)
+    // State untuk Fitur (Loading, Network Error, & Input Error)
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [searchError, setSearchError] = useState("");
@@ -228,7 +228,7 @@ export default function LowonganPage() {
                         ))}
                     </motion.div>
                 ) : (
-                    /* 4. EMPTY STATE (Sesua Poin 6 Handoff Modul) */
+                    /* 4. EMPTY STATE */
                     <div className="text-center py-20 bg-white rounded-3xl border border-gray-200 max-w-xl mx-auto shadow-sm">
                         <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,44 +247,6 @@ export default function LowonganPage() {
                 )}
 
             </div>
-
-            {/* --- FLOATING DEV CONTROLLER (Khusus screenshot praktikum, hapus sebelum diproduksi) --- */}
-            <div className="fixed bottom-5 right-5 z-50 bg-gray-900/90 text-white p-3 rounded-2xl shadow-2xl flex flex-col gap-2 text-xs backdrop-blur-md border border-gray-700">
-                <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold px-1 text-center">Dev State Switcher</span>
-                <div className="flex gap-1.5 flex-wrap">
-                    <button
-                        onClick={() => { setIsLoading(false); setIsError(false); setSearchError(""); setSearchTerm(""); }}
-                        className="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-bold transition-all"
-                    >
-                        Normal
-                    </button>
-                    <button
-                        onClick={() => { setIsLoading(true); setIsError(false); setSearchError(""); }}
-                        className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold transition-all"
-                    >
-                        Skeleton
-                    </button>
-                    <button
-                        onClick={() => { setIsError(true); setIsLoading(false); setSearchError(""); }}
-                        className="px-2.5 py-1.5 bg-red-600 hover:bg-red-500 rounded-xl font-bold transition-all"
-                    >
-                        Error Net
-                    </button>
-                    <button
-                        onClick={() => { setSearchError("Format pencarian tidak valid (tidak boleh pakai simbol)"); setSearchTerm("@#$"); setIsLoading(false); setIsError(false); }}
-                        className="px-2.5 py-1.5 bg-amber-600 hover:bg-amber-500 rounded-xl font-bold transition-all"
-                    >
-                        Search Red
-                    </button>
-                    <button
-                        onClick={() => { setSearchTerm("XYZ12345"); setIsLoading(false); setIsError(false); setSearchError(""); }}
-                        className="px-2.5 py-1.5 bg-purple-600 hover:bg-purple-500 rounded-xl font-bold transition-all"
-                    >
-                        Empty State
-                    </button>
-                </div>
-            </div>
-
         </div>
     );
 }
