@@ -8,7 +8,10 @@ import {
 } from 'lucide-react';
 
 export default function KelolaLowongan() {
-  // 1. Initial State Data Lowongan (Kualifikasi, IPK, dan Gaji digabung ke dalam Deskripsi)
+  // State untuk Sidebar Mobile Toggle
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // 1. Initial State Data Lowongan
   const [lowonganData, setLowonganData] = useState([
     {
       id: 1,
@@ -16,7 +19,7 @@ export default function KelolaLowongan() {
       perusahaan: 'PT Pegatron Technology Batam',
       lokasi: 'Batamindo Industrial Park',
       subLokasi: 'Muka Kuning • On-Site',
-      deskripsi: 'Tanggung Jawab:\n• Mengembangkan antarmuka web yang responsif dan interaktif menggunakan React.js dan Tailwind CSS.\n• Berkolaborasi dengan tim UI/UX Designer untuk menerjemahkan desain wireframe menjadi kode frontend yang bersih.\n\nPersyaratan:\n• Pendidikan minimal D3/D4 Teknik Informatika, Sistem Informasi, atau bidang terkait.\n• Menguasai JavaScript (ES6+), React.js, HTML5, CSS3/Tailwind CSS.\n• Minimal IPK 3.25',
+      deskripsi: 'Tanggung Jawab:\nMengembangkan antarmuka web yang responsif dan interaktif menggunakan React.js dan Tailwind CSS.\nBerkolaborasi dengan tim UI/UX Designer untuk menerjemahkan desain wireframe menjadi kode frontend yang bersih.\n\nPersyaratan:\nPendidikan minimal D3/D4 Teknik Informatika, Sistem Informasi, atau bidang terkait.\nMenguasai JavaScript (ES6+), React.js, HTML5, CSS3/Tailwind CSS.\nMinimal IPK 3.25',
       link: 'https://careers.pegatroncorp.com',
       status: 'Aktif',
       img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=150'
@@ -27,7 +30,7 @@ export default function KelolaLowongan() {
       perusahaan: 'PT McDermott Indonesia',
       lokasi: 'Kawasan Industri Batu Ampar',
       subLokasi: 'Batu Ampar • Yard',
-      deskripsi: 'Tanggung Jawab:\n• Membuat gambar teknik atau drafting untuk struktur mekanikal perkapalan.\n• Membantu insinyur senior dalam perhitungan spesifikasi material proyek.\n\nPersyaratan:\n• Lulusan D3/D4 Teknik Mesin.\n• Mampu mengoperasikan AutoCAD 2D/3D dan SolidWorks.\n• Minimal IPK 3.00',
+      deskripsi: 'Tanggung Jawab:\nMembuat gambar teknik atau drafting untuk struktur mekanikal perkapalan.\nMembantu insinyur senior dalam perhitungan spesifikasi material proyek.\n\nPersyaratan:\nLulusan D3/D4 Teknik Mesin.\nMampu mengoperasikan AutoCAD 2D/3D dan SolidWorks.\nMinimal IPK 3.00',
       link: 'https://mcdermott.myworkdayjobs.com',
       status: 'Aktif',
       img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=150'
@@ -38,7 +41,7 @@ export default function KelolaLowongan() {
       perusahaan: 'PT Infineon Technologies Batam',
       lokasi: 'Batamindo Industrial Park',
       subLokasi: 'Muka Kuning • Cleanroom',
-      deskripsi: 'Melakukan inspeksi kualitas pada komponen semikonduktor serta memastikan semua produk memenuhi standar ISO dan spesifikasi klien.\n\nKualifikasi:\n• D3/D4 Teknik Elektro atau Mekatronika (Min IPK 3.10).\n• Memahami konsep Quality Control (QC) dan jaminan mutu industri manufaktur.\n• Teliti dan mampu bekerja dalam ruangan cleanroom.',
+      deskripsi: 'Melakukan inspeksi kualitas pada komponen semikonduktor serta memastikan semua produk memenuhi standar ISO dan spesifikasi klien.\n\nKualifikasi:\nD3/D4 Teknik Elektro atau Mekatronika (Min IPK 3.10).\nMemahami konsep Quality Control (QC) dan jaminan mutu industri manufaktur.\nTeliti dan mampu bekerja dalam ruangan cleanroom.',
       link: 'https://infineon.com/careers',
       status: 'Aktif',
       img: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=150'
@@ -49,7 +52,7 @@ export default function KelolaLowongan() {
       perusahaan: 'PT Bredero Shaw Indonesia',
       lokasi: 'Kabil Integrated Estate',
       subLokasi: 'Kabil',
-      deskripsi: 'Tanggung Jawab:\n• Melakukan analisis tegangan pada sistem perpipaan untuk instalasi lepas pantai (offshore).\n• Memastikan desain pipa aman dari tekanan internal dan eksternal.\n\nPersyaratan Khusus:\n• S1 Teknik Mesin atau Perkapalan.\n• Pengalaman minimal 1 tahun di bidang analisis perpipaan.\n• Menguasai software Caesar II atau AutoPIPE.',
+      deskripsi: 'Tanggung Jawab:\nMelakukan analisis tegangan pada sistem perpipaan untuk instalasi lepas pantai (offshore).\nMemastikan desain pipa aman dari tekanan internal dan eksternal.\n\nPersyaratan Khusus:\nS1 Teknik Mesin atau Perkapalan.\nPengalaman minimal 1 tahun di bidang analisis perpipaan.\nMenguasai software Caesar II atau AutoPIPE.',
       link: '#',
       status: 'Ditutup',
       img: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&q=80&w=150'
@@ -70,7 +73,7 @@ export default function KelolaLowongan() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // 4. Form State (Disesuaikan, tanpa kualifikasi, ipk, dan gaji)
+  // 4. Form State
   const emptyForm = {
     id: null,
     judul: '',
@@ -143,12 +146,10 @@ export default function KelolaLowongan() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (isEditMode) {
-      // UPDATE
       setLowonganData(prev =>
         prev.map(item => (item.id === formData.id ? { ...formData } : item))
       );
     } else {
-      // CREATE
       const newItem = {
         ...formData,
         id: Date.now(),
@@ -171,35 +172,35 @@ export default function KelolaLowongan() {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'Aktif':
-        return <span className="bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold text-xs px-2.5 py-1 rounded-full">Aktif</span>;
+        return <span className="bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold text-[10px] md:text-xs px-2.5 py-1 rounded-full">Aktif</span>;
       case 'Ditutup':
-        return <span className="bg-slate-100 text-slate-500 border border-slate-200 font-medium text-xs px-2.5 py-1 rounded-full">Ditutup</span>;
+        return <span className="bg-slate-100 text-slate-500 border border-slate-200 font-medium text-[10px] md:text-xs px-2.5 py-1 rounded-full">Ditutup</span>;
       default:
         return null;
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans text-slate-800">
+    <div className="flex flex-col h-screen bg-slate-50 font-sans text-slate-800 overflow-hidden">
       
-      {/* HEADER DI ATAS */}
-      <Header />
+      {/* HEADER DI ATAS DENGAN HAMBURGER PROP */}
+      <Header onMenuClick={() => setIsSidebarOpen(true)} />
 
       {/* CONTAINER UNTUK SIDEBAR & KONTEN */}
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden relative">
         
-        {/* SIDEBAR DI KIRI */}
-        <Sidebar />
+        {/* SIDEBAR RESPONSIF */}
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
         {/* KONTEN UTAMA DI KANAN */}
-        <main className="flex-1 p-6 space-y-6 overflow-y-auto w-full">
+        <main className="flex-1 p-4 md:p-6 space-y-4 md:space-y-6 overflow-y-auto h-full w-full">
           
           {/* Ringkasan Kartu Indikator Utama */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-bold text-slate-400 uppercase">TOTAL LOWONGAN</p>
-                <p className="text-2xl font-black text-slate-900 mt-0.5">{totalLowongan} <span className="text-xs font-normal text-slate-500">posisi</span></p>
+                <p className="text-[10px] md:text-[11px] font-bold text-slate-400 uppercase">TOTAL LOWONGAN</p>
+                <p className="text-xl md:text-2xl font-black text-slate-900 mt-0.5">{totalLowongan} <span className="text-xs font-normal text-slate-500">posisi</span></p>
               </div>
               <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg">
                 <Briefcase className="w-5 h-5" />
@@ -208,8 +209,8 @@ export default function KelolaLowongan() {
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-bold text-slate-400 uppercase">AKTIF TAYANG</p>
-                <p className="text-2xl font-black text-slate-900 mt-0.5">{totalAktif} <span className="text-xs font-bold text-emerald-600">({totalLowongan ? ((totalAktif/totalLowongan)*100).toFixed(0) : 0}%)</span></p>
+                <p className="text-[10px] md:text-[11px] font-bold text-slate-400 uppercase">AKTIF TAYANG</p>
+                <p className="text-xl md:text-2xl font-black text-slate-900 mt-0.5">{totalAktif} <span className="text-xs font-bold text-emerald-600">({totalLowongan ? ((totalAktif/totalLowongan)*100).toFixed(0) : 0}%)</span></p>
               </div>
               <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg">
                 <CheckCircle2 className="w-5 h-5" />
@@ -218,8 +219,8 @@ export default function KelolaLowongan() {
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-bold text-slate-400 uppercase">PENDAFTARAN DITUTUP</p>
-                <p className="text-2xl font-black text-slate-900 mt-0.5">{totalDitutup} <span className="text-xs font-medium text-slate-500">arsip</span></p>
+                <p className="text-[10px] md:text-[11px] font-bold text-slate-400 uppercase">PENDAFTARAN DITUTUP</p>
+                <p className="text-xl md:text-2xl font-black text-slate-900 mt-0.5">{totalDitutup} <span className="text-xs font-medium text-slate-500">arsip</span></p>
               </div>
               <div className="p-2.5 bg-red-50 text-red-600 rounded-lg">
                 <AlertCircle className="w-5 h-5" />
@@ -228,16 +229,16 @@ export default function KelolaLowongan() {
           </div>
 
           {/* Section Header & Button Tambah */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div>
-              <p className="text-xs font-semibold text-slate-400">CDC Polibatam &gt; Manajemen Lowongan &gt; <span className="text-blue-600">Daftar Lowongan Karir</span></p>
-              <h1 className="text-2xl font-black text-slate-900 mt-1">Daftar Lowongan Karir</h1>
-              <p className="text-xs text-slate-500">Informasi Lowongan Karir Politeknik Negeri Batam &amp; Mitra Industri Terverifikasi</p>
+              <p className="text-[10px] md:text-xs font-semibold text-slate-400">CDC Polibatam &gt; Manajemen Lowongan &gt; <span className="text-blue-600">Daftar Lowongan Karir</span></p>
+              <h1 className="text-xl md:text-2xl font-black text-slate-900 mt-1">Daftar Lowongan Karir</h1>
+              <p className="text-[11px] md:text-xs text-slate-500">Informasi Lowongan Karir Politeknik Negeri Batam &amp; Mitra Industri Terverifikasi</p>
             </div>
             <button 
               type="button" 
               onClick={handleOpenAddModal}
-              className="bg-[#1b439c] hover:bg-blue-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 shadow-sm transition-colors cursor-pointer"
+              className="w-full sm:w-auto justify-center bg-[#1b439c] hover:bg-blue-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 shadow-sm transition-colors cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Tambah Lowongan</span>
@@ -257,11 +258,11 @@ export default function KelolaLowongan() {
               />
             </div>
 
-            <div className="flex items-center space-x-2 w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full md:w-auto">
               <select 
                 value={statusFilter}
                 onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
-                className="bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="Semua">Semua Status</option>
                 <option value="Aktif">Aktif Tayang</option>
@@ -271,7 +272,7 @@ export default function KelolaLowongan() {
               <select 
                 value={kawasanFilter}
                 onChange={(e) => { setKawasanFilter(e.target.value); setCurrentPage(1); }}
-                className="bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="Semua">Semua Kawasan</option>
                 <option value="Batamindo">Batamindo Industrial Park</option>
@@ -282,10 +283,10 @@ export default function KelolaLowongan() {
             </div>
           </div>
 
-          {/* Tabel Data Lowongan */}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          {/* Tabel Data Lowongan Responsif */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
+              <table className="w-full text-left text-xs min-w-[700px]">
                 <thead className="bg-slate-50 text-slate-400 font-bold uppercase border-b border-slate-100">
                   <tr>
                     <th className="p-4 w-[28%]">LOWONGAN &amp; PERUSAHAAN</th>
@@ -308,8 +309,8 @@ export default function KelolaLowongan() {
                             onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=150'; }}
                           />
                           <div>
-                            <p className="font-bold text-slate-900 text-sm">{item.judul}</p>
-                            <p className="text-xs text-slate-500 font-semibold">{item.perusahaan}</p>
+                            <p className="font-bold text-slate-900 text-xs md:text-sm">{item.judul}</p>
+                            <p className="text-[11px] text-slate-500 font-semibold">{item.perusahaan}</p>
                           </div>
                         </td>
                         <td className="p-4">
@@ -433,10 +434,10 @@ export default function KelolaLowongan() {
             {/* Modal Header */}
             <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <div>
-                <h3 className="text-lg font-black text-slate-900">
+                <h3 className="text-base md:text-lg font-black text-slate-900">
                   {isEditMode ? 'Edit Lowongan Karir' : 'Tambah Lowongan Baru'}
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-[11px] md:text-xs text-slate-500">
                   {isEditMode ? 'Perbarui informasi detail lowongan pekerjaan' : 'Isi formulir untuk menambahkan posisi lowongan baru ke sistem'}
                 </p>
               </div>
@@ -450,8 +451,7 @@ export default function KelolaLowongan() {
             </div>
 
             {/* Modal Body / Form */}
-            <form onSubmit={handleFormSubmit} className="p-6 overflow-y-auto space-y-4 flex-1 text-xs">
-              
+            <form onSubmit={handleFormSubmit} className="p-4 md:p-6 overflow-y-auto space-y-4 flex-1 text-xs">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
                 {/* Judul Posisi Lowongan */}
@@ -495,7 +495,7 @@ export default function KelolaLowongan() {
                   />
                 </div>
 
-                {/* Kawasan Industri (Tidak Wajib) */}
+                {/* Kawasan Industri */}
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">Kawasan Industri / Lokasi</label>
                   <select
@@ -526,21 +526,21 @@ export default function KelolaLowongan() {
                   />
                 </div>
 
-                {/* Deskripsi Pekerjaan Baru (Digabung Kualifikasi, IPK, Gaji) */}
+                {/* Deskripsi Pekerjaan */}
                 <div className="md:col-span-2">
                   <label className="block font-bold text-slate-700 mb-1">Deskripsi &amp; Kualifikasi Pekerjaan <span className="text-red-500">*</span></label>
                   <textarea
                     name="deskripsi"
                     required
-                    rows="7"
-                    placeholder="Contoh:&#10;Tanggung Jawab:&#10;• Mengembangkan antarmuka web...&#10;&#10;Kualifikasi & Persyaratan:&#10;• Minimal IPK 3.00...&#10;• Kisaran Gaji: Rp 5 Jt..."
+                    rows="6"
+                    placeholder="Contoh:&#10;Tanggung Jawab:&#10;Mengembangkan antarmuka web...&#10;&#10;Kualifikasi & Persyaratan:&#10;Minimal IPK 3.00..."
                     value={formData.deskripsi}
                     onChange={handleFormChange}
                     className="w-full px-3 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none leading-relaxed"
                   />
                 </div>
 
-                {/* Status Publikasi (Hanya Aktif & Ditutup) */}
+                {/* Status Publikasi */}
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">Status Lowongan <span className="text-red-500">*</span></label>
                   <select
@@ -606,7 +606,7 @@ export default function KelolaLowongan() {
                   onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=150'; }}
                 />
                 <div>
-                  <h3 className="text-base font-black text-slate-900">{selectedItem.judul}</h3>
+                  <h3 className="text-sm md:text-base font-black text-slate-900">{selectedItem.judul}</h3>
                   <p className="text-xs font-semibold text-slate-500">{selectedItem.perusahaan}</p>
                 </div>
               </div>
@@ -620,13 +620,12 @@ export default function KelolaLowongan() {
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 overflow-y-auto space-y-5 text-xs text-slate-700">
+            <div className="p-5 md:p-6 overflow-y-auto space-y-5 text-xs text-slate-700">
               <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <span className="font-semibold text-slate-500">Status Pendaftaran</span>
                 {getStatusBadge(selectedItem.status)}
               </div>
 
-              {/* Paragraf Deskripsi & Persyaratan Lengkap */}
               <div>
                 <h4 className="font-bold text-slate-900 text-sm mb-2 flex items-center gap-1.5"><AlignLeft className="w-4 h-4 text-blue-600"/> Deskripsi &amp; Persyaratan</h4>
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
@@ -634,7 +633,6 @@ export default function KelolaLowongan() {
                 </div>
               </div>
 
-              {/* Detail Info Baris */}
               <div className="space-y-3 pt-4 border-t border-slate-100">
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
