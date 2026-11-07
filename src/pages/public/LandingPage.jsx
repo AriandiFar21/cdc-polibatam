@@ -382,7 +382,7 @@ export default function LandingPage() {
                     <MarqueeRow items={mitraRow2} direction="left" speed={35} />
                     <MarqueeRow items={mitraRow3} direction="left" speed={50} />
                 </div>
-            </section>
+            </section>``
         </div>
     );
 }
