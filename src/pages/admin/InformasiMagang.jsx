@@ -8,6 +8,9 @@ import {
 } from 'lucide-react';
 
 export default function InformasiMagang() {
+  // State untuk Sidebar Mobile Toggle
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   // 1. Initial State Data Lowongan Magang
   const [magangData, setMagangData] = useState([
     {
@@ -194,27 +197,31 @@ export default function InformasiMagang() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans text-slate-800">
+    <div className="flex flex-col h-screen bg-slate-50 font-sans text-slate-800 overflow-hidden">
       
-      <Header />
+      {/* HEADER DI ATAS DENGAN HAMBURGER PROP */}
+      <Header onMenuClick={() => setIsSidebarOpen(true)} />
 
-      <div className="flex flex-1">
+      {/* CONTAINER UTAMA */}
+      <div className="flex flex-1 overflow-hidden relative">
         
-        <Sidebar />
+        {/* SIDEBAR RESPONSIF */}
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-        <main className="flex-1 p-6 space-y-6 overflow-y-auto w-full">
+        {/* KONTEN UTAMA */}
+        <main className="flex-1 p-4 md:p-6 space-y-4 md:space-y-6 overflow-y-auto h-full w-full">
           
           {/* Header Info & Tombol Action */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div>
-              <p className="text-xs font-semibold text-slate-400">CDC Polibatam / Manajemen Magang / <span className="text-blue-600">Lowongan Magang</span></p>
-              <h1 className="text-2xl font-black text-slate-900 mt-1">Informasi Lowongan Magang</h1>
-              <p className="text-xs text-slate-500">Kelola daftar lowongan magang kerja sama dan magang mandiri dari mitra industri.</p>
+              <p className="text-[10px] md:text-xs font-semibold text-slate-400">CDC Polibatam / Manajemen Magang / <span className="text-blue-600">Lowongan Magang</span></p>
+              <h1 className="text-xl md:text-2xl font-black text-slate-900 mt-1">Informasi Lowongan Magang</h1>
+              <p className="text-[11px] md:text-xs text-slate-500">Kelola daftar lowongan magang kerja sama dan magang mandiri dari mitra industri.</p>
             </div>
             <button 
               type="button" 
               onClick={handleOpenAddModal}
-              className="bg-[#1b439c] hover:bg-blue-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 shadow-sm transition-colors cursor-pointer"
+              className="w-full sm:w-auto justify-center bg-[#1b439c] hover:bg-blue-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2 shadow-sm transition-colors cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Tambah Lowongan Magang</span>
@@ -222,11 +229,11 @@ export default function InformasiMagang() {
           </div>
 
           {/* Ringkasan Kartu Indikator */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-bold text-slate-400 uppercase">TOTAL LOWONGAN</p>
-                <p className="text-2xl font-black text-slate-900 mt-0.5">{totalProgram} <span className="text-xs font-normal text-slate-500">Program</span></p>
+                <p className="text-[10px] md:text-[11px] font-bold text-slate-400 uppercase">TOTAL LOWONGAN</p>
+                <p className="text-xl md:text-2xl font-black text-slate-900 mt-0.5">{totalProgram} <span className="text-xs font-normal text-slate-500">Program</span></p>
               </div>
               <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg">
                 <Briefcase className="w-5 h-5" />
@@ -235,8 +242,8 @@ export default function InformasiMagang() {
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-bold text-slate-400 uppercase">LOWONGAN AKTIF</p>
-                <p className="text-2xl font-black text-slate-900 mt-0.5">{totalAktif} <span className="text-xs font-normal text-slate-500">Tersedia</span></p>
+                <p className="text-[10px] md:text-[11px] font-bold text-slate-400 uppercase">LOWONGAN AKTIF</p>
+                <p className="text-xl md:text-2xl font-black text-slate-900 mt-0.5">{totalAktif} <span className="text-xs font-normal text-slate-500">Tersedia</span></p>
               </div>
               <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg">
                 <CheckCircle2 className="w-5 h-5" />
@@ -245,8 +252,8 @@ export default function InformasiMagang() {
 
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-bold text-slate-400 uppercase">LOWONGAN DITUTUP</p>
-                <p className="text-2xl font-black text-slate-900 mt-0.5">{totalTutup} <span className="text-xs font-normal text-slate-500">Arsip</span></p>
+                <p className="text-[10px] md:text-[11px] font-bold text-slate-400 uppercase">LOWONGAN DITUTUP</p>
+                <p className="text-xl md:text-2xl font-black text-slate-900 mt-0.5">{totalTutup} <span className="text-xs font-normal text-slate-500">Arsip</span></p>
               </div>
               <div className="p-2.5 bg-slate-100 text-slate-600 rounded-lg">
                 <AlertCircle className="w-5 h-5" />
@@ -267,11 +274,11 @@ export default function InformasiMagang() {
               />
             </div>
 
-            <div className="flex items-center space-x-2 w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full md:w-auto">
               <select 
                 value={skemaFilter}
                 onChange={(e) => { setSkemaFilter(e.target.value); setCurrentPage(1); }}
-                className="bg-slate-50 border border-slate-100 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto bg-slate-50 border border-slate-100 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="Semua">Semua Skema</option>
                 <option value="Magang Kerja Sama">Magang Kerja Sama</option>
@@ -281,7 +288,7 @@ export default function InformasiMagang() {
               <select 
                 value={statusFilter}
                 onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
-                className="bg-slate-50 border border-slate-100 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto bg-slate-50 border border-slate-100 text-slate-700 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="Semua">Semua Status</option>
                 <option value="Aktif">Aktif</option>
@@ -290,9 +297,9 @@ export default function InformasiMagang() {
             </div>
           </div>
 
-          {/* Tabel Program Magang */}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="p-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center text-xs text-slate-500 font-semibold px-4">
+          {/* Tabel Program Magang Responsif */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+            <div className="p-3 bg-slate-50 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs text-slate-500 font-semibold px-4 gap-2 sm:gap-0">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input 
                   type="checkbox" 
@@ -306,7 +313,7 @@ export default function InformasiMagang() {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
+              <table className="w-full text-left text-xs min-w-[700px]">
                 <thead className="bg-slate-50/50 text-slate-400 font-bold uppercase border-b border-slate-100">
                   <tr>
                     <th className="p-4 w-10"></th>
@@ -320,7 +327,7 @@ export default function InformasiMagang() {
                 <tbody className="divide-y divide-slate-100 font-medium">
                   {paginatedData.length > 0 ? (
                     paginatedData.map((item) => (
-                      <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
+                      <tr key={item.id} className="hover:bg-slate-50/85 transition-colors">
                         <td className="p-4">
                           <input 
                             type="checkbox" 
@@ -337,7 +344,7 @@ export default function InformasiMagang() {
                             onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=150'; }}
                           />
                           <div>
-                            <p className="font-bold text-slate-900 text-sm leading-tight">{item.judul}</p>
+                            <p className="font-bold text-slate-900 text-xs md:text-sm leading-tight">{item.judul}</p>
                             <p className="text-[11px] text-slate-600 font-semibold mt-0.5">{item.mitra}</p>
                             <p className="text-[10px] text-slate-400 font-mono mt-0.5">{item.id}</p>
                           </div>
@@ -448,10 +455,10 @@ export default function InformasiMagang() {
             
             <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <div>
-                <h3 className="text-lg font-black text-slate-900">
+                <h3 className="text-base md:text-lg font-black text-slate-900">
                   {isEditMode ? 'Edit Lowongan Magang' : 'Tambah Lowongan Magang'}
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-[11px] md:text-xs text-slate-500">
                   {isEditMode ? `ID Program: ${formData.id}` : 'Lengkapi formulir informasi lowongan magang baru'}
                 </p>
               </div>
@@ -464,7 +471,7 @@ export default function InformasiMagang() {
               </button>
             </div>
 
-            <form onSubmit={handleFormSubmit} className="p-6 overflow-y-auto space-y-4 flex-1 text-xs">
+            <form onSubmit={handleFormSubmit} className="p-4 md:p-6 overflow-y-auto space-y-4 flex-1 text-xs">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
                 <div className="md:col-span-2">
@@ -649,7 +656,7 @@ export default function InformasiMagang() {
                   onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=150'; }}
                 />
                 <div>
-                  <h3 className="text-base font-black text-slate-900 leading-tight">{selectedProgram.judul}</h3>
+                  <h3 className="text-sm md:text-base font-black text-slate-900 leading-tight">{selectedProgram.judul}</h3>
                   <p className="text-xs font-semibold text-slate-500">{selectedProgram.mitra}</p>
                 </div>
               </div>
@@ -662,7 +669,7 @@ export default function InformasiMagang() {
               </button>
             </div>
 
-            <div className="p-6 space-y-4 text-xs text-slate-700">
+            <div className="p-5 md:p-6 space-y-4 text-xs text-slate-700 max-h-[70vh] overflow-y-auto">
               <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <div>
                   <span className="block font-semibold text-slate-500 mb-0.5">Status Pendaftaran</span>
@@ -714,7 +721,7 @@ export default function InformasiMagang() {
                   <div>
                     <p className="font-bold text-slate-900">Akses Pendaftaran / Poster</p>
                     <a href={selectedProgram.linkPendaftaran} target="_blank" rel="noreferrer" className="text-blue-600 font-semibold hover:underline flex items-center space-x-1 mt-0.5">
-                      <span className="truncate max-w-[250px]">{selectedProgram.linkPendaftaran}</span>
+                      <span className="break-all">{selectedProgram.linkPendaftaran}</span>
                       <ExternalLink className="w-3 h-3 flex-shrink-0" />
                     </a>
                   </div>
