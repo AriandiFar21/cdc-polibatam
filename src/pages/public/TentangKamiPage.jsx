@@ -65,7 +65,7 @@ export default function TentangKamiPage() {
                         {/* Container Foto */}
                         <div className="relative rounded-[2rem] overflow-hidden shadow-2xl h-[350px] md:h-[450px]">
                             <img
-                                src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop"
+                                src="/images-4.jpeg"
                                 alt="Gedung Kampus Politeknik Negeri Batam"
                                 className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
                             />
