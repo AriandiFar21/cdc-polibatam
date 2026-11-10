@@ -8,6 +8,7 @@ export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const location = useLocation();
 
+    // Efek ubah background saat halaman di-scroll
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
@@ -16,6 +17,7 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Tutup dropdown dan menu mobile otomatis saat berpindah halaman
     useEffect(() => {
         setIsDropdownOpen(false);
         setIsMobileMenuOpen(false);
@@ -30,6 +32,8 @@ export default function Navbar() {
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+
+                {/* Logo & Brand */}
                 <Link
                     to="/"
                     className="flex items-center gap-3 transition-opacity hover:opacity-90 focus:outline-none"
@@ -49,6 +53,7 @@ export default function Navbar() {
                     </div>
                 </Link>
 
+                {/* Desktop Navigation Links */}
                 <div className={`hidden lg:flex items-center gap-7 font-semibold text-sm transition-colors ${isSolid ? 'text-gray-700' : 'text-white'
                     }`}>
                     <Link to="/" className="hover:text-yellow-400 transition-colors">Beranda</Link>
@@ -63,14 +68,15 @@ export default function Navbar() {
                         MyInternship
                     </a>
                     <a
-                        href="https://talent.polibatam.ac.id"
+                        href="https://talenthub.polibatam.ac.id"
                         target="_blank"
                         rel="noreferrer"
                         className="hover:text-yellow-400 transition-colors"
                     >
-                        Talent Cerdas
+                        Talent Hub
                     </a>
 
+                    {/* Dropdown Menu Informasi */}
                     <div className="relative">
                         <button
                             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -106,6 +112,7 @@ export default function Navbar() {
                     </div>
                 </div>
 
+                {/* Portal Admin Button (Desktop) */}
                 <div className="hidden lg:flex items-center">
                     <Link
                         to="/admin"
@@ -119,10 +126,12 @@ export default function Navbar() {
                     </Link>
                 </div>
 
+                {/* Hamburger Menu Toggle (Mobile) */}
                 <div className="lg:hidden flex items-center">
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className={`focus:outline-none ${isSolid ? 'text-blue-900' : 'text-white'}`}
+                        className={`focus:outline-none p-1 ${isSolid ? 'text-blue-900' : 'text-white'}`}
+                        aria-label="Toggle Menu"
                     >
                         <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             {isMobileMenuOpen ? (
@@ -135,6 +144,7 @@ export default function Navbar() {
                 </div>
             </div>
 
+            {/* Mobile Dropdown Menu */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div

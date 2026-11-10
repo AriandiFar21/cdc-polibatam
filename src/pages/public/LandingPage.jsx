@@ -12,60 +12,23 @@ const staggerContainer = {
     visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } },
 };
 
-function ScrambleText({ text }) {
-    const [displayValue, setDisplayValue] = useState(text);
-    const [hasAnimated, setHasAnimated] = useState(false);
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+<>%';
-
-    return (
-        <motion.span
-            onViewportEnter={() => {
-                if (hasAnimated) return;
-                setHasAnimated(true);
-                let iteration = 0;
-                const interval = setInterval(() => {
-                    setDisplayValue(
-                        text
-                            .split('')
-                            .map((char, index) => {
-                                if (index < iteration) {
-                                    return text[index];
-                                }
-                                return chars[Math.floor(Math.random() * chars.length)];
-                            })
-                            .join('')
-                    );
-                    if (iteration >= text.length) {
-                        clearInterval(interval);
-                        setDisplayValue(text);
-                    }
-                    iteration += 1 / 3;
-                }, 30);
-            }}
-            viewport={{ once: true, amount: 0.3 }}
-        >
-            {displayValue}
-        </motion.span>
-    );
-}
-
 const mitraRow1 = ["PT McDermott Indonesia", "PT Pegatron Technology", "PT Panasonic Industrial", "Bank Indonesia", "PT Kinema Systrans", "PT Sat Nusapersada", "PT Telkom Indonesia", "PT Infineon Technologies"];
 const mitraRow2 = ["Universiti Teknologi Malaysia", "Sekolah Tinggi Teknologi Pekanbaru", "Politeknik Aceh Selatan", "SMA Negeri 3 Dumai", "Ming Chi University of Technology", "Advance Pact SDN BHD", "Universitas Indonesia"];
 const mitraRow3 = ["PT ESSA Consulting", "PT Sinergi Aitikom", "Gojek", "Kimchi Medika", "RSUD Petala Bumi", "Dinas Pemuda dan Olahraga", "Pemerintah Kota Batam", "BP Batam"];
 
 const heroSlides = [
     {
-        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop",
+        image: "/images-6.jpeg",
         title: "Pusat Pengembangan",
         highlight: "Karier & Alumni"
     },
     {
-        image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
+        image: "/images-5.jpeg",
         title: "Jembatan Menuju",
         highlight: "Dunia Profesional"
     },
     {
-        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop",
+        image: "/IMG_6086-768x512.jpg",
         title: "Wujudkan Generasi",
         highlight: "Siap Berkarya"
     }
@@ -252,7 +215,7 @@ export default function LandingPage() {
                                             {stat.icon}
                                         </div>
                                         <div>
-                                            <h4 className="text-xl font-bold text-white"><ScrambleText text={stat.title} /></h4>
+                                            <h4 className="text-xl font-bold text-white">{stat.title}</h4>
                                             <p className="text-xs text-blue-200 font-medium">{stat.desc}</p>
                                         </div>
                                     </div>
@@ -262,7 +225,7 @@ export default function LandingPage() {
                                             {stat.icon}
                                         </div>
                                         <div>
-                                            <h4 className="text-xl font-bold text-gray-900"><ScrambleText text={stat.title} /></h4>
+                                            <h4 className="text-xl font-bold text-gray-900">{stat.title}</h4>
                                             <p className="text-xs text-gray-500 font-medium">{stat.desc}</p>
                                         </div>
                                     </div>
@@ -382,7 +345,7 @@ export default function LandingPage() {
                     <MarqueeRow items={mitraRow2} direction="left" speed={35} />
                     <MarqueeRow items={mitraRow3} direction="left" speed={50} />
                 </div>
-            </section>``
+            </section>
         </div>
     );
 }
